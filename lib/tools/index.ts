@@ -51,7 +51,7 @@ type Interaction = {
 
 const TODAY = "2026-05-26";
 
-const orders: Order[] = [
+export const orders: Order[] = [
   {
     order_id: "WF-10472",
     customer_id: "CUST-001",
@@ -93,7 +93,7 @@ const orders: Order[] = [
   },
 ];
 
-const customers: Record<string, Customer> = {
+export const customers: Record<string, Customer> = {
   "CUST-001": {
     customer_id: "CUST-001",
     name: "James Carter",
@@ -114,13 +114,13 @@ const customers: Record<string, Customer> = {
   },
 };
 
-const carriers: Record<string, Carrier> = {
+export const carriers: Record<string, Carrier> = {
   "CARR-EF": { carrier_id: "CARR-EF", name: "Eastern Freight", on_time_rate: 0.64 },
   "CARR-XD": { carrier_id: "CARR-XD", name: "XDL Logistics", on_time_rate: 0.71 },
   "CARR-PL": { carrier_id: "CARR-PL", name: "Pelican Lines", on_time_rate: 0.88 },
 };
 
-const weather: Record<string, WeatherEvent> = {
+export const weather: Record<string, WeatherEvent> = {
   "02134": { zip: "02134", forecast: "Clear", severity: "none" },
   "78704": { zip: "78704", forecast: "Light rain", severity: "none" },
   "33139": {
@@ -136,7 +136,7 @@ function findOrder(order_id: string): Order | undefined {
   return orders.find((o) => o.order_id === order_id);
 }
 
-function computeRiskScore(order: Order) {
+export function computeRiskScore(order: Order) {
   const carrier = carriers[order.carrier_id];
   const wx = weather[order.ship_zip];
   const customer = customers[order.customer_id];
