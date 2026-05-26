@@ -9,21 +9,17 @@ const subconsciousProvider = createOpenAICompatible({
   includeUsage: true,
 });
 
-function withThinking(enableThinking: boolean) {
-  return subconsciousProvider.languageModel(SUBCONSCIOUS_MODEL_ID, {
+/** Subconscious defaults thinking ON — we disable it for faster, cleaner output. */
+export const subconsciousModel = subconsciousProvider.languageModel(
+  SUBCONSCIOUS_MODEL_ID,
+  {
     transformRequestBody: (body) => ({
       ...body,
-      chat_template_kwargs: { enable_thinking: enableThinking },
+      chat_template_kwargs: { enable_thinking: false },
       ...(body.stream ? { stream_options: { include_usage: true } } : {}),
     }),
-  });
-}
-
-/** Fast chat — thinking off for lower latency and cleaner replies. */
-export const chatModel = withThinking(false);
-
-/** Long-running agents — thinking on for multi-step reasoning. */
-export const agentModel = withThinking(true);
+  },
+);
 
 export function requireSubconsciousApiKey() {
   const apiKey = process.env.SUBCONSCIOUS_API_KEY;

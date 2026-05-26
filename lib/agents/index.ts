@@ -1,5 +1,5 @@
 import { ToolLoopAgent, stepCountIs } from "ai";
-import { agentModel, chatModel } from "@/lib/subconscious";
+import { subconsciousModel } from "@/lib/subconscious";
 import { agentTools, chatTools } from "@/lib/tools";
 import { createMcpTools } from "@/lib/tools/mcp-tools";
 
@@ -19,7 +19,7 @@ Summarize findings clearly at the end with actionable next steps for the hacker 
 
 /** Quick chat with a small tool set. */
 export const chatAgent = new ToolLoopAgent({
-  model: chatModel,
+  model: subconsciousModel,
   instructions: CHAT_INSTRUCTIONS,
   tools: chatTools,
   stopWhen: stepCountIs(8),
@@ -28,7 +28,7 @@ export const chatAgent = new ToolLoopAgent({
 
 /** Long-running agent with search, multi-step tasks, and MCP examples. */
 export const researchAgent = new ToolLoopAgent({
-  model: agentModel,
+  model: subconsciousModel,
   instructions: AGENT_INSTRUCTIONS,
   tools: {
     ...agentTools,
